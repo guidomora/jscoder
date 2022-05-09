@@ -18,6 +18,8 @@ let buscador = document.getElementById("buscador");
 let divProductos = document.getElementById("divProductos");
 let boton = document.getElementById("boton");
 let costo = 500;
+const carrito = [];
+let buscarProducto;
 
 const suma1 = (ramo1, costo) => ramo1 + costo;
 const suma2 = (ramo2, costo) => ramo2 + costo;
@@ -29,7 +31,6 @@ buscador.addEventListener("change", () => {
   let busqueda = buscador.value;
   console.log(busqueda.toLowerCase());
   let ramosFilter = ramos.filter( ramo => ramo.nombre.includes(busqueda.toLowerCase()));
-  
   ramosFilter.forEach (ramos => {
     divProductos.innerHTML += `
         <div>
@@ -40,11 +41,17 @@ buscador.addEventListener("change", () => {
         </div>
     `
   })
+  return busqueda
 });
 
 boton.addEventListener("click", () => {
   let boton = buscador.value;
   alert("Usted eligio " + boton);
+  const llevarProducto = () => {
+    buscarProducto = ramos.find((ramos) => ramos.nombre === productoElegido)
+  }
+  llevarProducto;
+  carrito.push(buscador);
   const envio = confirm("Quiere que se lo enviemos? Tiene un costo de $500")
     if (envio == true) {
       alert( + costo)
