@@ -1,6 +1,7 @@
 
 class Ramos {
-  constructor(nombre, ramo, precio, flores) {
+  constructor(id, nombre, ramo, precio, flores) {
+    this.id = id
     this.nombre = nombre
     this.ramo = ramo
     this.precio = precio
@@ -8,15 +9,15 @@ class Ramos {
   }
 }
 
-const ramo1 = new Ramos ("ramo1", "variado chico", 2500, "flores variadas");
-const ramo2 = new Ramos ("ramo2", "rosas", 6000, "rosas rojas");
-const ramo3 = new Ramos ("ramo3", "variado mediano", 3500, "flores variadas");
-const ramo4 = new Ramos ("ramo4", "variado grande", 7000, "flores variadas");
+const ramo1 = new Ramos (1, "ramo1", "variado chico", 2500, "flores variadas");
+const ramo2 = new Ramos (2, "ramo2", "rosas", 6000, "rosas rojas");
+const ramo3 = new Ramos (3, "ramo3", "variado mediano", 3500, "flores variadas");
+const ramo4 = new Ramos (4, "ramo4", "variado grande", 7000, "flores variadas");
 
 let ramos = [ramo1, ramo2, ramo3, ramo4];
 let buscador = document.getElementById("buscador");
 let divProductos = document.getElementById("divProductos");
-let boton = document.getElementById("boton");
+let divCheckout = document.getElementById("divCheckout");
 let costo = 500;
 const carrito = [];
 let productoElegido;
@@ -27,38 +28,33 @@ const suma3 = (ramo3, costo) => ramo3 + costo;
 const suma4 = (ramo4, costo) => ramo4 + costo;
 
 
-buscador.addEventListener("change", () => {
-  let busqueda = buscador.value;
-  console.log(busqueda.toLowerCase());
-  let ramosFilter = ramos.filter( ramo => ramo.nombre.includes(busqueda.toLowerCase()));
-  ramosFilter.forEach (ramos => {
-    divProductos.innerHTML += `
-        <div>
-          <h3> Ramos ${ramos.nombre} </h3>
-          <p> Tipo de ramo: ${ramos.ramo} </p>
-          <p> Precio: ${ramos.precio} </p>
-          <p> Flores que lleva: ${ramos.flores} </p>
+ramos.forEach(ramos => {
+  divProductos.innerHTML += `
+      <div id="divProductos ${ramos.id}" class="productos">
+        <h2> Nombre: ${ramos.nombre} </h2>
+        <p> Tipo: ${ramos.ramo} </p>
+        <p> Precio: ${ramos.precio} </p>
+        <p> Flores: ${ramos.flores} </p>
+        <button id= "boton${ramos.id}"> Sumar al carrito </button>
         </div>
-    `
-  })
-  return busqueda
-});
-
-boton.addEventListener("click", () => {
-  let boton = buscador.value;
-  alert("Usted eligio " + boton);
-  const buscarProducto = ramos.find(ramo  => ramo.nombre === productoElegido); 
-  console.log(buscarProducto);
-carrito.push(buscarProducto);
-  const envio = confirm("Quiere que se lo enviemos? Tiene un costo de $500")
-    if (envio == true) {
-      alert( + costo)
-    } else if (envio == false) {
-      alert(ramos.precio)
-    }
+  `
 })
 
+ramos.forEach(ramos => {
+  document.getElementById(`boton${ramos.id}`).addEventListener("click", () => {
+    carrito.push(ramos);
+    localStorage.setItem("ramosCarrito", JSON.stringify(carrito));
+  })
 
+})
+
+carrito.forEach(carrito => {
+  divCheckout.innerHTML += `
+<div id= "divCheckout" ${carrito}>
+  <button id= "botonCheckout"> Comprar <button>
+</div>
+`
+})
 
 
 
