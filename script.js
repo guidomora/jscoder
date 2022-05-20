@@ -15,49 +15,57 @@ const ramo3 = new Ramos (3, "ramo3", "variado mediano", 3500, "flores variadas")
 const ramo4 = new Ramos (4, "ramo4", "variado grande", 7000, "flores variadas");
 
 let ramos = [ramo1, ramo2, ramo3, ramo4];
-let buscador = document.getElementById("buscador");
 let divProductos = document.getElementById("divProductos");
-let divCheckout = document.getElementById("divCheckout");
+let divCheckout = document.querySelector(".precios");
 let costo = 500;
 const carrito = [];
-let productoElegido;
+let botonEnvio = document.getElementById("botonEnvio");
 
-const suma1 = (ramo1, costo) => ramo1 + costo;
-const suma2 = (ramo2, costo) => ramo2 + costo;
-const suma3 = (ramo3, costo) => ramo3 + costo;
-const suma4 = (ramo4, costo) => ramo4 + costo;
+const suma = (carrito, costo) => carrito + costo;
 
 
 ramos.forEach(ramos => {
   divProductos.innerHTML += `
-      <div id="divProductos ${ramos.id}" class="productos">
-        <h2> Nombre: ${ramos.nombre} </h2>
-        <p> Tipo: ${ramos.ramo} </p>
-        <p> Precio: ${ramos.precio} </p>
-        <p> Flores: ${ramos.flores} </p>
-        <button id= "boton${ramos.id}"> Sumar al carrito </button>
-        </div>
+    <div id="divProductos ${ramos.id}" class="productos">
+      <h2> Nombre: ${ramos.nombre} </h2>
+      <p> Tipo: ${ramos.ramo} </p>
+      <p> Precio: ${ramos.precio} </p>
+      <p> Flores: ${ramos.flores} </p>
+      <button id= "boton${ramos.id}"> Sumar al carrito </button>
+    </div>
   `
 })
 
-ramos.forEach(ramos => {
+const productoElegido = ramos.forEach(ramos => {
   document.getElementById(`boton${ramos.id}`).addEventListener("click", () => {
-    carrito.push(ramos);
     localStorage.setItem("ramosCarrito", JSON.stringify(carrito));
+    sumarAlCarrito(ramos);
   })
-
+  return carrito
 })
 
-carrito.forEach(carrito => {
-  divCheckout.innerHTML += `
-<div id= "divCheckout" ${carrito}>
-  <button id= "botonCheckout"> Comprar <button>
-</div>
-`
+function sumarAlCarrito (ramos) {
+  const existe = carrito.some((element) => element.id === ramos.id);
+  const ramoAlCarrito = {...ramos, cantidad: 1}
+  if (existe) {
+    carrito.map((element) => {
+      if (element.id === ramos.id){
+        element.cantidad++;
+        return element;
+      }
+    });
+  } else {
+    carrito.push(ramoAlCarrito);
+  }
+}
+
+const carritoPrecios = carrito.filter (carrito => {
+  return carrito.precio > 0});
+console.log(carritoPrecios);
+
+document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
+  botonEnvio.innerHTML += `
+  <h3> Precio final: ${carritoPrecios} </h3>
+` 
 })
-
-
-
-
-
 
