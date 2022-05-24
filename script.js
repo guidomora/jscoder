@@ -34,7 +34,7 @@ ramos.forEach(ramos => {
       <button id= "boton${ramos.id}"> Sumar al carrito </button>
     </div>
   `
-})
+});
 
 const productoElegido = ramos.forEach(ramos => {
   document.getElementById(`boton${ramos.id}`).addEventListener("click", () => {
@@ -53,9 +53,9 @@ const productoElegido = ramos.forEach(ramos => {
     }).showToast();
     localStorage.setItem("ramosCarrito", JSON.stringify(carrito));
     sumarAlCarrito(ramos);
-  })
+  });
   return carrito
-})
+});
 
 
 function sumarAlCarrito (ramos) {
@@ -71,27 +71,42 @@ function sumarAlCarrito (ramos) {
   } else {
     carrito.push(ramoAlCarrito);
   }
-}
+};
 
 
 
   
 document.getElementById(`mostrarCarrito`).addEventListener("click", () => {
   carrito.forEach (element => {  
-    mostrarCarrito.innerHTML =+ ` 
-    <div id="divProductos ${element.id}" class="productos">
+    mostrarCarrito.innerHTML += ` 
+    <div id="divProductos ${element.id}">
       <h2> Nombre: ${element.nombre} </h2>
       <p> Tipo: ${element.ramo} </p>
       <p> Precio: ${element.precio} </p>
       <p> Flores: ${element.flores} </p>
-      <button id= "boton${element.id}"> Eliminar del carrito </button>
+      <p> Cantidad: ${element.cantidad} </p>
+      <button id= "${element.id}" class "btnBorrar> Eliminar del carrito </button>
     </div>
     `
   })
-})    
+  borrarProducto()
+});
+
+function borrarProducto () {
+  let btnBorrar = document.querySelectorAll(".btnBorrar")
+  btnBorrar.forEach((element) => {
+    element.addEventListener("click", (e) => {
+      let id = parseInt(e.target.id);
+      carrito = carrito.filter((element) => {
+        return element.id !== id;
+      })
+      mostrarCarrito;
+    })
+  })
+};
 
 document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
   botonEnvio.innerHTML += `
   <h3> Precio final: ${carritoPrecios} </h3>
 ` 
-})
+});
