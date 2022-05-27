@@ -19,6 +19,9 @@
     font-family: 'Bebas Neue', cursive;
 }
 
+.carritoAbierto {
+    visibility:hidden;
+}
 
 .precios {
     font-size: 17px;
