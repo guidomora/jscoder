@@ -5,6 +5,7 @@ let costo = 500;
 let carrito = [];
 let subTotal = [];
 let botonEnvio = document.getElementById("botonEnvio");
+let botonEnvioo = document.getElementById("botonEnvio");
 let botonSinEnvio = document.getElementById("botonSinEnvio");
 let botonSinEnvioo = document.getElementById("botonSinEnvioo");
 
