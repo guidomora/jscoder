@@ -18,12 +18,24 @@
       Tenemos disponibles los siguientes ramos: ramo1, ramo2, ramo3 y ramo4
     </h2>
     <div id="divProductos" class="divs"></div>
-    <button id="mostrarCarrito" class="precios">Ver carrito</button>
+    <button>
+      <div id="mostrarCarrito" class="verCarrito">Ver carrito
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart icono" viewBox="0 0 16 16">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+      </div>  
+    </button>  
+    <div id="mostrarCarritoo" class="padreProductos">
+    </div>
     <h3>
-      Si desea que se lo enviemos, haga click sobre el boton "Envio". Tiene un
+      Si desea que se lo enviemos, haga click sobre el boton "Compra con envio". Tiene un
       costo de $500
     </h3>
-    <button id="botonEnvio" class="precios">Envio</button>
+    <button id="botonEnvio" class="precios">Compra con envio</button>
+    <button>
+      <div id="botonSinEnvio" class="precios">Compra sin envio</div>
+    </button>
+    <div id="botonSinEnvioo" class="precios"></div>
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/toastify-js"

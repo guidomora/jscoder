@@ -1,10 +1,12 @@
 let divProductos = document.getElementById("divProductos");
 let mostrarCarrito = document.getElementById("mostrarCarrito");
+let mostrarCarritoo = document.getElementById("mostrarCarritoo");
 let costo = 500;
 let carrito = [];
 let subTotal = [];
 let botonEnvio = document.getElementById("botonEnvio");
-
+let botonSinEnvio = document.getElementById("botonSinEnvio");
+let botonSinEnvioo = document.getElementById("botonSinEnvioo");
 
 
 fetch(`./productos.json`)
@@ -64,8 +66,8 @@ function sumarAlCarrito(ramos) {
 document.getElementById(`mostrarCarrito`).addEventListener("click", () => {
   mostrarCarrito.innerHTML = "";
   carrito.forEach((element) => {
-    mostrarCarrito.innerHTML += ` 
-    <div id="divProductos ${element.id}">
+    mostrarCarritoo.innerHTML += ` 
+    <div id="divProductos ${element.id}" class="productosElegidos">
       <h2> Nombre: ${element.nombre} </h2>
       <p> Tipo: ${element.ramo} </p>
       <p> Precio: ${element.precio} </p>
@@ -92,45 +94,20 @@ function borrarProducto() {
 }
 
 document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
-  const preciosSuma = carrito.map ((datos) => datos.precio)
+  const preciosSuma = carrito.map ((datos) => datos.precio);
   console.log(preciosSuma);
 });
 
-  
-
-
-// document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
-//   botonEnvio.innerHTML = ""
-//   botonEnvio.innerHTML += `
-//   <h3> Precio final: ${precios} </h3>
-// `;
-//   });
-
-// class Ramos {
-//   constructor(id, nombre, ramo, precio, flores, ) {
-//     this.id = id
-//     this.nombre = nombre
-//     this.ramo = ramo
-//     this.precio = precio
-//     this.flores = flores
-//   }
-// }
-
-// const ramo1 = new Ramos (1, "ramo1", "variado chico", 2500, "flores variadas");
-// const ramo2 = new Ramos (2, "ramo2", "rosas", 6000, "rosas rojas");
-// const ramo3 = new Ramos (3, "ramo3", "liliums", 3500, "liliums blanco");
-// const ramo4 = new Ramos (4, "ramo4", "variado grande", 7000, "flores variadas");
-
-// let ramos = [ramo1, ramo2, ramo3, ramo4];
-
-// ramos.forEach(ramos => {
-//   divProductos.innerHTML += `
-//     <div id="divProductos ${ramos.id}" class="productos">
-//       <h2> Nombre: ${ramos.nombre} </h2>
-//       <p> Tipo: ${ramos.ramo} </p>
-//       <p> Precio: ${ramos.precio} </p>
-//       <p> Flores: ${ramos.flores} </p>
-//       <button id= "boton${ramos.id}"> Sumar al carrito </button>
-//     </div>
-//   `
-// });
+document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
+  const preciosSinEnvio = carrito.map ((datos) => datos.precio);
+  const conjuntoPrecios = preciosSinEnvio.reduce((precio1, precio2) => precio1 + precio2)
+  subTotal.push(conjuntoPrecios);
+  subTotal.forEach((precios) => {
+    botonSinEnvioo.innerHTML += `
+      <div id ="botonSinEnvio">
+        <h3> Precio final: ${precios} </h3>
+      </div>  
+    `
+  })
+  console.log(subTotal);
+});
