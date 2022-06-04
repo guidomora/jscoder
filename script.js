@@ -1,7 +1,7 @@
 let divProductos = document.getElementById("divProductos");
 let mostrarCarrito = document.getElementById("mostrarCarrito");
 let mostrarCarritoo = document.getElementById("mostrarCarritoo");
-let costo = 500;
+let costo = 750;
 let carrito = [];
 let subTotal = [];
 let botonEnvio = document.getElementById("botonEnvio");
@@ -92,11 +92,21 @@ function borrarProducto() {
       mostrarCarrito;
     });
   });
+  console.log(carrito);
 }
 
 document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
-  const preciosSuma = carrito.map ((datos) => datos.precio);
-  console.log(preciosSuma);
+  const preciosEnvio = carrito.map ((datos) => datos.precio);
+  const sumaEnvio = preciosEnvio.reduce((precio1, precio2) => precio1 + precio2 + costo)
+  subTotal.push(sumaEnvio);
+  subTotal.forEach((precios) => {
+    botonSinEnvioo.innerHTML += `
+      <div id ="botonEnvioo">
+        <h3> Precio final: ${precios} </h3>
+      </div>  
+    `
+  })
+  console.log(subTotal);
 });
 
 document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
