@@ -111,9 +111,11 @@ document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => 
 
 
 document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
-  const preciosSinEnvio = carrito.map ((datos) => datos.precio);
-  const conjuntoPrecios = preciosSinEnvio.reduce((precio1, precio2) => precio1 + precio2)
-  subTotal.push(conjuntoPrecios);
+  const preciosSinEnvio = carrito.forEach ((carrito) => {
+    const preciosProducto = [carrito.precio * carrito.cantidad];
+    const precioFinal = preciosProducto.reduce((precio, cantidad) => precio + cantidad);
+    subTotal.push(precioFinal);
+  });
   subTotal.forEach((precios) => {
     botonSinEnvioo.innerHTML += `
       <div id ="botonSinEnvio">
