@@ -109,6 +109,7 @@ document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => 
   console.log(subTotal);
 });
 
+
 document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
   const preciosSinEnvio = carrito.map ((datos) => datos.precio);
   const conjuntoPrecios = preciosSinEnvio.reduce((precio1, precio2) => precio1 + precio2)
