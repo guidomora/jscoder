@@ -8,7 +8,9 @@ let botonEnvio = document.getElementById("botonEnvio");
 let botonEnvioo = document.getElementById("botonEnvio");
 let botonSinEnvio = document.getElementById("botonSinEnvio");
 let botonSinEnvioo = document.getElementById("botonSinEnvioo");
+let finalizar = document.getElementById("finalizar");
 
+// Productos diponibles
 
 fetch(`./productos.json`)
   .then((response) => response.json())
@@ -49,6 +51,8 @@ fetch(`./productos.json`)
     });
   });
 
+// Funcion para que se sumen los productos elegidos al carrito
+
 function sumarAlCarrito(ramos) {
   const existe = carrito.some((element) => element.id === ramos.id);
   const ramoAlCarrito = { ...ramos, cantidad: 1 };
@@ -63,6 +67,8 @@ function sumarAlCarrito(ramos) {
     carrito.push(ramoAlCarrito);
   }
 }
+
+// Carrito 
 
 document.getElementById(`mostrarCarrito`).addEventListener("click", () => {
   mostrarCarrito.innerHTML = "";
@@ -81,6 +87,8 @@ document.getElementById(`mostrarCarrito`).addEventListener("click", () => {
   borrarProducto();
 });
 
+// Funcion para borrar productos del carrito
+
 function borrarProducto() {
   const btnBorrar = document.querySelectorAll(".btnBorrar");
   btnBorrar.forEach((element) => {
@@ -95,25 +103,12 @@ function borrarProducto() {
   console.log(carrito);
 }
 
+// Boton para calcular el precio final con envio
+
 document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
-  const preciosEnvio = carrito.map ((datos) => datos.precio);
-  const sumaEnvio = preciosEnvio.reduce((precio1, precio2) => precio1 + precio2 + costo)
-  subTotal.push(sumaEnvio);
-  subTotal.forEach((precios) => {
-    botonSinEnvioo.innerHTML += `
-      <div id ="botonEnvioo">
-        <h3> Precio final: ${precios} </h3>
-      </div>  
-    `
-  })
-  console.log(subTotal);
-});
-
-
-document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
   const preciosSinEnvio = carrito.forEach ((carrito) => {
     const preciosProducto = [carrito.precio * carrito.cantidad];
-    const precioFinal = preciosProducto.reduce((precio, cantidad) => precio + cantidad);
+    const precioFinal = preciosProducto.reduce ((precio, costo)=> precio + costo)
     subTotal.push(precioFinal);
   });
   subTotal.forEach((precios) => {
@@ -125,3 +120,41 @@ document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () 
   })
   console.log(subTotal);
 });
+
+// Boton para calcular el precio final sin envio
+document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
+  const preciosSinEnvio = carrito.forEach ((carrito) => {
+    const preciosProducto = [carrito.precio * carrito.cantidad];
+    const precioFinal = preciosProducto.reduce((precio1, precio2) => precio1 + precio2);
+    subTotal.push(precioFinal);
+  });
+  subTotal.forEach((precios) => {
+    botonSinEnvioo.innerHTML += `
+      <div id ="botonSinEnvio">
+        <h3> Precio final: ${precios} </h3>
+      </div>  
+    `
+  })
+  console.log(subTotal);
+});
+
+// Boton para finalizar la compra
+document.getElementById(`finalizar`).addEventListener("click",() => {
+    Swal.fire({
+    title: 'Estas por finalizar la compra',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, finalizar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Finalizado!',
+        'Tu compra se ha realizado con exito.',
+        'success'
+      )
+    }
+  })
+})
+
