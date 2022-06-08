@@ -107,8 +107,8 @@ function borrarProducto() {
 
 document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
   const preciosSinEnvio = carrito.forEach ((carrito) => {
-    const preciosProducto = [carrito.precio * carrito.cantidad];
-    const precioFinal = preciosProducto.reduce ((precio, costo)=> precio + costo)
+    const preciosProducto = [(carrito.precio * carrito.cantidad) + costo];
+    const precioFinal = preciosProducto.reduce ((precio1, precio2)=> precio1 + precio2)
     subTotal.push(precioFinal);
   });
   subTotal.forEach((precios) => {
