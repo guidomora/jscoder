@@ -1,11 +1,10 @@
 let divProductos = document.getElementById("divProductos");
-let mostrarCarrito = document.getElementById("mostrarCarrito");
-let mostrarCarritoo = document.getElementById("mostrarCarritoo");
 let costo = 750;
 let carrito = [];
 let subTotal = [];
+let padreProductos = document.querySelector(".padreProductos");
 let botonEnvio = document.getElementById("botonEnvio");
-let botonEnvioo = document.getElementById("botonEnvio");
+let botonEnvioo = document.getElementById("botonEnvioo");
 let botonSinEnvio = document.getElementById("botonSinEnvio");
 let botonSinEnvioo = document.getElementById("botonSinEnvioo");
 let finalizar = document.getElementById("finalizar");
@@ -52,7 +51,7 @@ fetch(`./productos.json`)
     });
   });
 
-// Funcion para que se sumen los productos elegidos al carrito
+// Funcion para que se sumen los productos elegidos al carrito y se le agregue la cantidad
 
 function sumarAlCarrito(ramos) {
   const existe = carrito.some((element) => element.id === ramos.id);
@@ -70,7 +69,7 @@ function sumarAlCarrito(ramos) {
 }
 
 // Carrito 
-let padreProductos = document.querySelector(".padreProductos");
+
 function showCarrito() {
   document.getElementById(`show`).addEventListener("click", () => {
     padreProductos.innerHTML = "";
@@ -88,9 +87,8 @@ function showCarrito() {
     });
     borrarProducto();
   });
-}
+};
 
-showCarrito();
 // Funcion para borrar productos del carrito
 
 function borrarProducto() {
@@ -101,64 +99,75 @@ function borrarProducto() {
       carrito = carrito.filter((element) => {
         return element.id !== id;
       });
-      mostrarCarrito;
+    showCarrito();
     });
   });
-  console.log(carrito);
-}
+};
 
 // Boton para calcular el precio final con envio
-
-document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
-  const preciosSinEnvio = carrito.forEach ((carrito) => {
-    const preciosProducto = [(carrito.precio * carrito.cantidad) + costo];
-    const precioFinal = preciosProducto.reduce ((precio1, precio2)=> precio1 + precio2)
-    subTotal.push(precioFinal);
+function envio() {
+  document.getElementById(`botonEnvio${carrito}`).addEventListener("click", () => {
+    const preciosSinEnvio = carrito.forEach ((carrito) => {
+      const preciosProducto = [(carrito.precio * carrito.cantidad) + costo];
+      const precioFinal = preciosProducto.reduce ((precio1, precio2)=> precio1 + precio2)
+      subTotal.push(precioFinal);
+    });
+    subTotal.forEach((precios) => {
+      botonEnvioo.innerHTML += `
+        <div>
+          <h3> Precio final: ${precios} </h3>
+        </div>  
+      `
+    })
+    console.log(subTotal);
   });
-  subTotal.forEach((precios) => {
-    botonSinEnvioo.innerHTML += `
-      <div id ="botonSinEnvio">
-        <h3> Precio final: ${precios} </h3>
-      </div>  
-    `
-  })
-  console.log(subTotal);
-});
+};
+
+
 
 // Boton para calcular el precio final sin envio
-document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
-  const preciosSinEnvio = carrito.forEach ((carrito) => {
-    const preciosProducto = [carrito.precio * carrito.cantidad];
-    const precioFinal = preciosProducto.reduce((precio1, precio2) => precio1 + precio2);
-    subTotal.push(precioFinal);
+function sinEnvio() {
+  document.getElementById(`botonSinEnvio${carrito}`).addEventListener("click", () => {
+    const preciosSinEnvio = carrito.forEach ((carrito) => {
+      const preciosProducto = [carrito.precio * carrito.cantidad];
+      const precioFinal = preciosProducto.reduce((precio1, precio2) => precio1 + precio2);
+      subTotal.push(precioFinal);
+    });
+    subTotal.forEach((precios) => {
+      botonSinEnvioo.innerHTML += `
+        <div id ="botonSinEnvio">
+          <h3> Precio final: ${precios} </h3>
+        </div>  
+      `
+    })
+    console.log(subTotal);
   });
-  subTotal.forEach((precios) => {
-    botonSinEnvioo.innerHTML += `
-      <div id ="botonSinEnvio">
-        <h3> Precio final: ${precios} </h3>
-      </div>  
-    `
-  })
-  console.log(subTotal);
-});
+};
+
 
 // Boton para finalizar la compra
-document.getElementById(`finalizar`).addEventListener("click",() => {
-    Swal.fire({
-    title: 'Estas por finalizar la compra',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, finalizar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Finalizado!',
-        'Tu compra se ha realizado con exito.',
-        'success'
-      )
-    }
+function finalizarCompra() { 
+  document.getElementById(`finalizar`).addEventListener("click",() => {
+      Swal.fire({
+      title: 'Estas por finalizar la compra',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, finalizar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Finalizado!',
+          'Tu compra se ha realizado con exito.',
+          'success'
+        )
+      }
+    })
   })
-})
+};
 
+showCarrito();
+envio();
+sinEnvio();
+finalizarCompra();
