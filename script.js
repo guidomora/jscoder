@@ -10,6 +10,7 @@ let botonSinEnvio = document.getElementById("botonSinEnvio");
 let botonSinEnvioo = document.getElementById("botonSinEnvioo");
 let finalizar = document.getElementById("finalizar");
 
+
 // Productos diponibles
 
 fetch(`./productos.json`)
@@ -69,24 +70,27 @@ function sumarAlCarrito(ramos) {
 }
 
 // Carrito 
-
-document.getElementById(`mostrarCarrito`).addEventListener("click", () => {
-  mostrarCarrito.innerHTML = "";
-  carrito.forEach((element) => {
-    mostrarCarritoo.innerHTML += ` 
-    <div id="divProductos ${element.id}" class="productosElegidos">
-      <h2> Nombre: ${element.nombre} </h2>
-      <p> Tipo: ${element.ramo} </p>
-      <p> Precio: ${element.precio} </p>
-      <p> Flores: ${element.flores} </p>
-      <p> Cantidad: ${element.cantidad} </p>
-      <button id= "borrar ${element.id}" class ="btnBorrar"> Eliminar del carrito </button>
-    </div>
-    `;
+let padreProductos = document.querySelector(".padreProductos");
+function showCarrito() {
+  document.getElementById(`show`).addEventListener("click", () => {
+    padreProductos.innerHTML = "";
+    carrito.forEach((element) => {
+      padreProductos.innerHTML += ` 
+      <div id="divProductos ${element.id}" class="productosElegidos">
+        <h2> Nombre: ${element.nombre} </h2>
+        <p> Tipo: ${element.ramo} </p>
+        <p> Precio: ${element.precio} </p>
+        <p> Flores: ${element.flores} </p>
+        <p> Cantidad: ${element.cantidad} </p>
+        <button id= "borrar ${element.id}" class ="btnBorrar"> Eliminar del carrito </button>
+      </div>
+      `;
+    });
+    borrarProducto();
   });
-  borrarProducto();
-});
+}
 
+showCarrito();
 // Funcion para borrar productos del carrito
 
 function borrarProducto() {
