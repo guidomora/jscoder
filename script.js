@@ -27,7 +27,7 @@ fetch(`./productos.json`)
       <button id= "boton${id}"> Sumar al carrito </button>
     </div>
   `;
-    });
+  });
     const productoElegido = ramos.forEach((ramos) => {
       document
         .getElementById(`boton${ramos.id}`)
@@ -83,38 +83,39 @@ function showCarrito() {
         <p> Precio: ${element.precio} </p>
         <p> Flores: ${element.flores} </p>
         <p> Cantidad: ${element.cantidad} </p>
-        <button id= "borrar ${element.id}" class ="btnBorrar"> Eliminar del carrito </button>
+        <button id= "borrar${element.id}" class ="btnBorrar"> Eliminar del carrito </button>
       </div>
       `;
     });
-    borrarProducto(carrito);
+    borrarProducto();
   });
 };
 
 // Funcion para borrar productos del carrito
 
+
 // function borrarProducto(carrito, id) {
 //   return (carrito.filter(element => element.id != id));
 // }
 
-function borrarProducto (carrito, id) {
-  document.getElementById(`borrar`).addEventListener("click", () =>{
-    carrito.filter(element => element.id != id);
-  })
-}
+// function borrarProducto (carrito, id) {
+//   document.getElementById(`borrar`).addEventListener("click", () =>{
+//     carrito.filter(element => element.id != id);
+//   })
+// }
 
-// function borrarProducto() {
-//   const btnBorrar = document.querySelectorAll(".btnBorrar");
-//   btnBorrar.forEach((element) => {
-//     element.addEventListener("click", (e) => {
-//       let id = parseInt(e.target.id);
-//       carrito = carrito.filter((element) => {
-//         return element.id !== id;
-//       });
-//     showCarrito();
-//     });
-//   });
-// };
+function borrarProducto() {
+  const btnBorrar = document.querySelectorAll(".btnBorrar");
+  btnBorrar.forEach((element) => {
+    element.addEventListener("click", (e) => {
+      let id = parseInt(e.target.id);
+      console.log(e.target.id)
+      carritoFilter =  carrito.filter(element => ("borrar" + element.id) != id);
+      console.log(carritoFilter);
+    showCarrito();
+    });
+  });
+};
 
 // Boton para calcular el precio final con envio
 function envio() {
@@ -124,11 +125,9 @@ function envio() {
       const precioFinal = preciosProducto.reduce ((precio1, precio2)=> precio1 + precio2);
       subTotal.push(precioFinal);
     });
-    subTotal.forEach((precios) => {
-      botonEnvioo.innerHTML += `
-          <h3> Precio final: ${precios} </h3>
+    botonEnvioo.innerHTML += `
+          <h3> Precio final: ${subTotal.reduce((precio1, precio2)=> precio1 + precio2)} </h3>
       `
-    })
     console.log(subTotal);
   });
 };
@@ -143,11 +142,9 @@ function sinEnvio() {
       const precioFinal = preciosProducto.reduce((precio1, precio2) => precio1 + precio2);
       subTotal.push(precioFinal);
     });
-    subTotal.forEach((precios) => {
-      botonSinEnvioo.innerHTML += `
-          <h3> Precio final: ${precios} </h3>
-      `
-    })
+    botonSinEnvioo.innerHTML += `
+    <h3> Precio final: ${subTotal.reduce((precio1, precio2)=> precio1 + precio2)} </h3>
+    `
     console.log(subTotal);
   });
 };
