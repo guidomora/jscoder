@@ -4,7 +4,9 @@
         "nombre": "ramo1",
         "ramo": "variado chico",
         "precio": 2500,
-        "flores": "flores variadas"
+        "flores": "flores variadas",
+        "imagen":"./multimedia/ramo1.jpg" ,
+        "cantidad": 0
     },
 
     {
@@ -12,7 +14,9 @@
         "nombre": "ramo2",
         "ramo": "rosas",
         "precio": 6000,
-        "flores": "rosas rojas"
+        "flores": "rosas rojas",
+        "imagen":"./multimedia/ramo2.jpg" ,
+        "cantidad": 0
     },
 
     {
@@ -20,7 +24,9 @@
         "nombre": "ramo3",
         "ramo": "liliums",
         "precio": 3500,
-        "flores": "liliums blancos"
+        "flores": "liliums blancos",
+        "imagen":"./multimedia/ramo3.jpg" ,
+        "cantidad": 0
     },
 
     {
@@ -28,6 +34,8 @@
         "nombre": "ramo4",
         "ramo": "variado grande",
         "precio": 7000,
-        "flores": "flores variadas"
+        "flores": "flores variadas",
+        "imagen":"./multimedia/ramo4.jpg" ,
+        "cantidad": 0
     }
 ]

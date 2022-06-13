@@ -2,6 +2,7 @@
 
 body {
   font-family:"Bebas Neue", cursive;
+  background-color: #f8edeb;
 }
 
 .divs {
@@ -15,12 +16,15 @@ body {
 }
 
 .productos {
+  width: 260px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-evenly;
   font-family: "Bebas Neue", cursive;
+  background-color: #84a59d;
 }
 
 .btnCarrito {
@@ -38,12 +42,13 @@ body {
   justify-content: space-evenly;
 }
 .productosElegidos {
-  width: 200px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
   border: solid 1px;
+  background-color: #84a59d;
 }
 
 .precios {
@@ -69,4 +74,9 @@ body {
   flex-direction: row;
   justify-content: center;
   align-content: center;
+}
+
+.imagen {
+  height: 230px;
+  width: 180px;
 }
