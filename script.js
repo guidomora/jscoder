@@ -93,17 +93,6 @@ function showCarrito() {
 
 // Funcion para borrar productos del carrito
 
-
-// function borrarProducto(carrito, id) {
-//   return (carrito.filter(element => element.id != id));
-// }
-
-// function borrarProducto (carrito, id) {
-//   document.getElementById(`borrar`).addEventListener("click", () =>{
-//     carrito.filter(element => element.id != id);
-//   })
-// }
-
 function borrarProducto() {
   const btnBorrar = document.querySelectorAll(".btnBorrar");
   btnBorrar.forEach((element) => {
